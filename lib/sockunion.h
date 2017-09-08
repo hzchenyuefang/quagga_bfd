@@ -83,6 +83,10 @@ enum connect_result
 #define sockunion_family(X)  (X)->sa.sa_family
 
 #define sockunion2ip(X)      (X)->sin.sin_addr.s_addr
+#ifdef HAVE_IPV6
+#define sockunion2ip6(X)  (((struct sockaddr_in6 *)(X))->sin6_addr.s6_addr)
+#endif /* HAVE_IPV6 */
+
 
 /* Prototypes. */
 extern int str2sockunion (const char *, union sockunion *);

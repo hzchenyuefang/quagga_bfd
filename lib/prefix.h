@@ -237,6 +237,7 @@ extern struct prefix *sockunion2prefix (const union sockunion *dest,
                                         const union sockunion *mask);
 extern struct prefix *sockunion2hostprefix (const union sockunion *, struct prefix *p);
 extern void prefix2sockunion (const struct prefix *, union sockunion *);
+extern union sockunion* hostprefix2sockunion (const struct prefix *p);
 
 extern int str2prefix_eth (const char *, struct prefix_eth *);
 

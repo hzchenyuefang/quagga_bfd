@@ -48,6 +48,7 @@ unsigned long conf_bgp_debug_normal;
 unsigned long conf_bgp_debug_zebra;
 unsigned long conf_bgp_debug_allow_martians;
 unsigned long conf_bgp_debug_nht;
+unsigned long conf_bgp_debug_bfd;
 
 unsigned long term_bgp_debug_as4;
 unsigned long term_bgp_debug_fsm;
@@ -60,6 +61,7 @@ unsigned long term_bgp_debug_normal;
 unsigned long term_bgp_debug_zebra;
 unsigned long term_bgp_debug_allow_martians;
 unsigned long term_bgp_debug_nht;
+unsigned long term_bgp_debug_bfd;
 
 /* messages for BGP-4 status */
 const struct message bgp_status_msg[] = 
@@ -74,6 +76,18 @@ const struct message bgp_status_msg[] =
   { Deleted,     "Deleted"     },
 };
 const int bgp_status_msg_max = BGP_STATUS_MAX;
+
+/* messages for BFD status */
+struct message bgp_bfd_status_msg[] = 
+{
+  { 0, "null" },
+  { PEER_BFD_STATUS_NEW, "New" },
+  { PEER_BFD_STATUS_ADDED, "Added" },
+  { PEER_BFD_STATUS_DELETED, "Deleted" },
+  { PEER_BFD_STATUS_UP, "Up" },
+  { PEER_BFD_STATUS_DOWN, "Down" },
+};
+int bgp_bfd_status_msg_max = BGP_PEER_BFD_STATUS_MAX;
 
 /* BGP message type string. */
 const char *bgp_type_str[] =
@@ -813,6 +827,51 @@ ALIAS (no_debug_bgp_allow_martians,
        BGP_STR
        "BGP allow martian next hops\n")
 
+DEFUN (debug_bgp_bfd,
+       debug_bgp_bfd_cmd,
+       "debug bgp bfd",
+       DEBUG_STR
+       BGP_STR
+       "BFD events\n")
+{
+  if (vty->node == CONFIG_NODE)
+    DEBUG_ON (bfd, BFD);
+  else
+    {
+      TERM_DEBUG_ON (bfd, BFD);
+      vty_out (vty, "BGP bfd debugging is on%s", VTY_NEWLINE);
+    }
+  return CMD_SUCCESS;
+}
+
+DEFUN (no_debug_bgp_bfd,
+       no_debug_bgp_bfd_cmd,
+       "no debug bgp bfd",
+       NO_STR
+       DEBUG_STR
+       BGP_STR
+       "BFD events\n")
+{
+  if (vty->node == CONFIG_NODE)
+    DEBUG_OFF (bfd, BFD);
+  else
+    {
+      TERM_DEBUG_OFF (bfd, BFD);
+      vty_out (vty, "BGP bfd debugging is off%s", VTY_NEWLINE);
+    }
+  return CMD_SUCCESS;
+}
+
+ALIAS (no_debug_bgp_bfd,
+       undebug_bgp_bfd_cmd,
+       "undebug bgp bfd",
+       UNDEBUG_STR
+       DEBUG_STR
+       BGP_STR
+       "BGP bfd events\n")
+
+
+
 DEFUN (no_debug_bgp_all,
        no_debug_bgp_all_cmd,
        "no debug all bgp",
@@ -832,6 +891,7 @@ DEFUN (no_debug_bgp_all,
   TERM_DEBUG_OFF (filter, FILTER);
   TERM_DEBUG_OFF (zebra, ZEBRA);
   TERM_DEBUG_OFF (allow_martians, ALLOW_MARTIANS);
+  TERM_DEBUG_OFF (bfd, BFD);  
   vty_out (vty, "All possible debugging has been turned off%s", VTY_NEWLINE);
       
   return CMD_SUCCESS;
@@ -879,6 +939,8 @@ DEFUN (show_debugging_bgp,
     vty_out (vty, "  BGP allow martian next hop debugging is on%s", VTY_NEWLINE);
   if (BGP_DEBUG (nht, NHT))
     vty_out (vty, "  BGP next-hop tracking debugging is on%s", VTY_NEWLINE);
+  if (BGP_DEBUG (bfd, BFD))
+    vty_out (vty, "  BGP bfd debugging is on%s", VTY_NEWLINE);
   vty_out (vty, "%s", VTY_NEWLINE);
   return CMD_SUCCESS;
 }
@@ -964,6 +1026,12 @@ bgp_config_write_debug (struct vty *vty)
       write++;
     }
 
+  if (CONF_BGP_DEBUG (bfd, BFD))
+    {
+      vty_out (vty, "debug bgp bfd%s", VTY_NEWLINE);
+      write++;
+    }
+
   return write;
 }
 
@@ -1006,6 +1074,8 @@ bgp_debug_init (void)
   install_element (CONFIG_NODE, &debug_bgp_zebra_cmd);
   install_element (ENABLE_NODE, &debug_bgp_allow_martians_cmd);
   install_element (CONFIG_NODE, &debug_bgp_allow_martians_cmd);
+  install_element (ENABLE_NODE, &debug_bgp_bfd_cmd);
+  install_element (CONFIG_NODE, &debug_bgp_bfd_cmd);
 
   install_element (ENABLE_NODE, &no_debug_bgp_as4_cmd);
   install_element (ENABLE_NODE, &undebug_bgp_as4_cmd);
@@ -1041,6 +1111,9 @@ bgp_debug_init (void)
   install_element (ENABLE_NODE, &no_debug_bgp_allow_martians_cmd);
   install_element (ENABLE_NODE, &undebug_bgp_allow_martians_cmd);
   install_element (CONFIG_NODE, &no_debug_bgp_allow_martians_cmd);
+  install_element (ENABLE_NODE, &no_debug_bgp_bfd_cmd);
+  install_element (ENABLE_NODE, &undebug_bgp_bfd_cmd);
+  install_element (CONFIG_NODE, &no_debug_bgp_bfd_cmd);
   install_element (ENABLE_NODE, &no_debug_bgp_all_cmd);
   install_element (ENABLE_NODE, &undebug_bgp_all_cmd);
 }

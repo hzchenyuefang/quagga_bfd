@@ -21,6 +21,7 @@ Boston, MA 02111-1307, USA.  */
 #ifndef _ZEBRA_IF_H
 #define _ZEBRA_IF_H
 
+//#include "sockunion.h"
 #include "zebra.h"
 #include "linklist.h"
 
@@ -362,6 +363,9 @@ extern struct interface *if_lookup_by_index (ifindex_t);
 extern struct interface *if_lookup_exact_address (struct in_addr);
 extern struct interface *if_lookup_address (struct in_addr);
 extern struct interface *if_lookup_prefix (struct prefix *prefix);
+#ifdef HAVE_IPV6
+extern struct interface *if_lookup_exact_address6 (struct in6_addr *addr);
+#endif /* HAVE IPV6 */
 
 extern struct interface *if_create_vrf (const char *name, int namelen,
                                 vrf_id_t vrf_id);
@@ -382,6 +386,7 @@ extern struct interface *if_lookup_by_name_vrf (const char *ifname,
                                 vrf_id_t vrf_id);
 extern struct interface *if_get_by_name_vrf (const char *ifname,
                                 vrf_id_t vrf_id);
+//extern struct interface *if_lookup_by_sockunion_exact(union sockunion *su);
 
 /* For these 2 functions, the namelen argument should be the precise length
    of the ifname string (not counting any optional trailing '\0' character).

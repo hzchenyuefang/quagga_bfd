@@ -484,6 +484,7 @@ struct cmd_token
 #define REDIST_STR "Redistribute information from another routing protocol\n"
 #define CLEAR_STR "Reset functions\n"
 #define RIP_STR "RIP information\n"
+#define BFD_STR "BFD information\n"
 #define BGP_STR "BGP information\n"
 #define BGP_SOFT_STR "Soft reconfig inbound and outbound updates\n"
 #define BGP_SOFT_IN_STR "Send route-refresh unless using 'soft-reconfiguration inbound'\n"

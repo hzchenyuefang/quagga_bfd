@@ -48,6 +48,10 @@ extern struct interface *if_lookup_by_ipv4_exact (struct in_addr *);
 extern struct interface *if_lookup_by_ipv6 (struct in6_addr *);
 extern struct interface *if_lookup_by_ipv6_exact (struct in6_addr *);
 
+extern int bgp_bfd_neigh_add(struct peer *peer);
+extern int bgp_bfd_neigh_del(struct peer *peer);
+extern void bgp_bfd_estab(struct peer *peer);  
+extern int bgp_bfd_mhop(struct peer *peer);
 extern int bgp_zebra_num_connects(void);
 
 #endif /* _QUAGGA_BGP_ZEBRA_H */

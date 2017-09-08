@@ -141,6 +141,7 @@ extern struct route_table *route_table_init (void);
 extern struct route_table *
 route_table_init_with_delegate (route_table_delegate_t *);
 
+extern void route_node_delete (struct route_node *node);
 extern void route_table_finish (struct route_table *);
 extern void route_unlock_node (struct route_node *node);
 extern struct route_node *route_top (struct route_table *);

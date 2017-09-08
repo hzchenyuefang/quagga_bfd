@@ -20,7 +20,8 @@
 #define ZEBRA_ROUTE_OLSR                 12
 #define ZEBRA_ROUTE_BABEL                13
 #define ZEBRA_ROUTE_NHRP                 14
-#define ZEBRA_ROUTE_MAX                  15
+#define ZEBRA_ROUTE_BFD                  15
+#define ZEBRA_ROUTE_MAX                  16
 
 #define SHOW_ROUTE_V4_HEADER \
   "Codes: K - kernel route, C - connected, S - static, R - RIP,%s" \

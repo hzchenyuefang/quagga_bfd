@@ -27,8 +27,8 @@
 #include "memory.h"
 #include "sockunion.h"
 
-static void route_node_delete (struct route_node *);
-static void route_table_free (struct route_table *);
+void route_node_delete (struct route_node *);
+void route_table_free (struct route_table *);
 
 
 /*
@@ -79,7 +79,7 @@ route_node_free (struct route_table *table, struct route_node *node)
 }
 
 /* Free route table. */
-static void
+void
 route_table_free (struct route_table *rt)
 {
   struct route_node *tmp_node;
@@ -343,7 +343,7 @@ route_node_get (struct route_table *const table, const struct prefix *p)
 }
 
 /* Delete node from the routing table. */
-static void
+void
 route_node_delete (struct route_node *node)
 {
   struct route_node *child;

@@ -78,6 +78,15 @@ enum
   MTYPE_NETLINK_NAME,
   MTYPE_NETLINK_RCVBUF,
   MTYPE_RNH,
+  MTYPE_BFD,
+  MTYPE_BFD_LPORT,
+  MTYPE_BFD_NEIGHSTRUCT,
+  MTYPE_BFD_CNEIGHTBL,
+  MTYPE_BFD_NEIGHTBL,
+  MTYPE_BFD_ADDRTREEHDR,
+  MTYPE_BFD_IF_INFO,
+  MTYPE_BFD_NEIGH,
+  MTYPE_BFD_CNEIGH,
   MTYPE_BGP,
   MTYPE_BGP_LISTENER,
   MTYPE_BGP_PEER,
@@ -236,6 +245,7 @@ enum
 
 extern struct memory_list memory_list_lib[];
 extern struct memory_list memory_list_zebra[];
+extern struct memory_list memory_list_bfd[];
 extern struct memory_list memory_list_bgp[];
 extern struct memory_list memory_list_rip[];
 extern struct memory_list memory_list_ripng[];

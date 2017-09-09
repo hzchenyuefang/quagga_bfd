@@ -1,7 +1,7 @@
 Note: this file lists major user-visible changes only.
-
 * Changes in Quagga []
 
+- [bfd]   "merge bfd support from quagga version 0.99.9 to 1.2.1 in 20170909"
 - [zebra] "no link-detect" is no longer the default.  
 
     The previous release of Quagga always explicitly writes-out the

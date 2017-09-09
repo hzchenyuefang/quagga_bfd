@@ -1,7 +1,16 @@
 *.lo
 *.a
 *.la
-*.sh
+doc/quagga.info
+doc/stamp-vti
+doc/version.texi
+pkgsrc/bfdd.sh
+pkgsrc/bgpd.sh
+pkgsrc/ospf6d.sh
+pkgsrc/ospfd.sh
+pkgsrc/ripd.sh
+pkgsrc/ripngd.sh
+pkgsrc/zebra.sh
 */extract.pl
 lib/version.h
 tests/test-commands-defun.c
@@ -23,7 +32,6 @@ bgpd/bgpd
 watchquagga/watchquagga
 vtysh/vtysh
 vtysh/vtysh_cmd.c
-configure.ac.orig
 redhat/quagga.spec
 doc/quagga.info-1
 doc/quagga.info-2

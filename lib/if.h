@@ -363,6 +363,7 @@ extern struct interface *if_lookup_by_index (ifindex_t);
 extern struct interface *if_lookup_exact_address (struct in_addr);
 extern struct interface *if_lookup_address (struct in_addr);
 extern struct interface *if_lookup_prefix (struct prefix *prefix);
+extern struct interface *if_lookup_prefix_bestmatch(struct prefix *prefix);
 #ifdef HAVE_IPV6
 extern struct interface *if_lookup_exact_address6 (struct in6_addr *addr);
 #endif /* HAVE IPV6 */
